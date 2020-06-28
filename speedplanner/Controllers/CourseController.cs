@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace speedplanner.Controllers
 {
-    [Route("/api/User/{userId}/InscriptionProcess/{inscriptionProcessId}/[controller]")]
     public class CourseController: Controller
     {
         private readonly ICourseService _courseService;
@@ -22,34 +21,43 @@ namespace speedplanner.Controllers
             _courseService = courseService;
             _mapper = mapper;
         }
-
-        [HttpGet]
-        public async Task<IEnumerable<CourseResource>> GetAllByInscriptionProcessIdAsync([FromRoute] int inscriptionProcessId)
+        [HttpGet("/api/User/{userId}/Course")]
+        public async Task<IEnumerable<CourseResource>> GetAllByProfileIdAsync([FromRoute] int userId)
         {
-            var courses = await _courseService.ListByInscriptionProcessIdAsync(inscriptionProcessId);
+            var courses = await _courseService.ListByProfileIdAsync(userId);
+            var resources = _mapper
+                .Map<IEnumerable<Course>, IEnumerable<CourseResource>>(courses);
+            return resources;
+
+        }
+
+        [HttpGet("/api/EducationProvider/{educationProviderId}/Course")]
+        public async Task<IEnumerable<CourseResource>> GetAllByEducationProviderIdAsync([FromRoute] int educationProviderId)
+        {
+            var courses = await _courseService.ListByEducationProviderIdAsync(educationProviderId);
             var resources = _mapper
                 .Map<IEnumerable<Course>, IEnumerable<CourseResource>>(courses);
             return resources;
         }
 
-        [HttpGet("{courseId}")]
-        public async Task<IActionResult> GetByIdAndInscriptionProcessIdAsync([FromRoute] int inscriptionProcessId, int courseId)
+        [HttpGet("/api/EducationProvider/{educationProviderId}/Course/{courseId}")]
+        public async Task<IActionResult> GetByIdAndEducationProviderIdAsync([FromRoute] int educationProviderId, int courseId)
         {
-            var result = await _courseService.GetByIdAndInscriptionProcessIdAsync(inscriptionProcessId, courseId);
+            var result = await _courseService.GetByIdAndEducationProviderIdAsync(educationProviderId, courseId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var courseResource = _mapper.Map<Course, CourseResource>(result.Resource);
             return Ok(courseResource);
         }
 
-        [HttpPost] //ESTO NO DEBERIA ESTAR ACAAA o AL MENOS NO PARA UN USUARIO
-        public async Task<IActionResult> PostAsync([FromRoute] int inscriptionProcessId, [FromBody] SaveCourseResource resource)
+        [HttpPost("/api/EducationProvider/{educationProviderId}/Course")] 
+        public async Task<IActionResult> PostAsync([FromRoute] int educationProviderId, [FromBody] SaveCourseResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var course = _mapper.Map<SaveCourseResource, Course>(resource);
-            var result = await _courseService.SaveAsync(inscriptionProcessId, course);
+            var result = await _courseService.SaveAsync(educationProviderId, course);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -58,14 +66,14 @@ namespace speedplanner.Controllers
             return Ok(courseResource);
         }
 
-        [HttpPut("{courseId}")] //TAMPOCO
-        public async Task<IActionResult> PutAsync([FromRoute] int inscriptionProcessId, int courseId, [FromBody] SaveCourseResource resource)
+        [HttpPut("/api/EducationProvider/{educationProviderId}/Course/{courseId}")] 
+        public async Task<IActionResult> PutAsync([FromRoute] int educationProviderId, int courseId, [FromBody] SaveCourseResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var course = _mapper.Map<SaveCourseResource, Course>(resource);
-            var result = await _courseService.UpdateAsync(inscriptionProcessId, courseId, course);
+            var result = await _courseService.UpdateAsync(educationProviderId, courseId, course);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -74,10 +82,10 @@ namespace speedplanner.Controllers
             return Ok(courseResource);
         }
 
-        [HttpDelete("{courseId}")] //TAMPOCO
-        public async Task<IActionResult> DeleteAsync([FromRoute] int inscriptionProcessId, int courseId)
+        [HttpDelete("/api/EducationProvider/{educationProviderId}/Course/{courseId}")] 
+        public async Task<IActionResult> DeleteAsync([FromRoute] int educationProviderId, int courseId)
         {
-            var result = await _courseService.DeleteAsync(inscriptionProcessId, courseId);
+            var result = await _courseService.DeleteAsync(educationProviderId, courseId);
 
             if (!result.Success)
                 return BadRequest(result.Message);

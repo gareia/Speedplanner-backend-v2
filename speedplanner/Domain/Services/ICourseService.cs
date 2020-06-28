@@ -9,10 +9,15 @@ namespace speedplanner.Domain.Services
 {
     public interface ICourseService
     {
-        Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId);
-        Task<CourseResponse> SaveAsync(int inscriptionProcessId, Course course);
-        Task<CourseResponse> GetByIdAndInscriptionProcessIdAsync(int inscriptionProcessId, int courseId);
-        Task<CourseResponse> UpdateAsync(int inscriptionProcessId, int courseId, Course course);
-        Task<CourseResponse> DeleteAsync(int inscriptionProcessId, int courseId);
+        //Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId);
+
+        Task<IEnumerable<Course>> ListByProfileIdAsync(int learningProgramId);
+
+        Task<CourseResponse> SaveAsync(int educationProviderId, Course course);
+        Task<IEnumerable<Course>> ListByEducationProviderIdAsync(int educationProviderId);
+        Task<CourseResponse> GetByIdAndEducationProviderIdAsync(int educationProviderId, int courseId);
+        Task<CourseResponse> UpdateAsync(int educationProviderId, int courseId, Course course);
+        Task<CourseResponse> DeleteAsync(int educationProviderId, int courseId);
+        
     }
 }

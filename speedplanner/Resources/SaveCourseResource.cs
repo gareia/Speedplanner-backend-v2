@@ -17,8 +17,6 @@ namespace speedplanner.Resources
         [Key]
         public string Name { get; set; }
         [Required]
-        public long TotalNumberOfStudents { get; set; }
-        [Required]
         public bool IsOptional { get; set; }
         [Required]
         public bool IsVirtual { get; set; }
@@ -26,5 +24,9 @@ namespace speedplanner.Resources
         public int Semester { get; set; }
         [Required]
         public int Credits { get; set; }
+        public int? HigherCourseId { get; set; }
+        [Required]
+        public int EducationProviderId { get; set; }
+
     }
 }

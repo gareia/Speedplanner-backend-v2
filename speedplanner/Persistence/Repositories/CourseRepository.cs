@@ -12,25 +12,26 @@ namespace speedplanner.Persistence.Repositories
     public class CourseRepository : BaseRepository, ICourseRepository
     {
         public CourseRepository(AppDbContext context) : base(context) { }
-        public async Task AddAsync(int inscriptionProcessId, Course course)
+        public async Task AddAsync(int educationProviderId, Course course)
         {
-            course.InscriptionProcessId = inscriptionProcessId;
+            course.EducationProviderId = educationProviderId;
             await _context.Courses.AddAsync(course);
         }
+
+        public async Task<IEnumerable<Course>> ListByEducationProviderIdAsync(int educationProviderId)
+        {
+            return await _context.Courses
+                .Where(lp => lp.EducationProviderId == educationProviderId)
+                .Include(lp => lp.EducationProvider)
+                .ToListAsync();
+        }
+
 
         public async Task<Course> FindByIdAsync(int courseId)
         {
             return await _context.Courses.FindAsync(courseId);
         }
-
-        public async Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId)
-        {
-            return await _context.Courses
-                .Where(c => c.InscriptionProcessId == inscriptionProcessId)
-                .Include(c => c.InscriptionProcess)
-                .ToListAsync();
-        }
-
+       
         public void Remove(Course course)
         {
             _context.Courses.Remove(course);

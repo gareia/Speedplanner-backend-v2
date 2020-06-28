@@ -10,7 +10,6 @@ namespace speedplanner.Domain.Repositories
     {
         Task AddAsync(EducationProvider educationProvider);
         Task<IEnumerable<EducationProvider>> ListAsync();
-        
         Task<EducationProvider> FindById(int id);
         void Update(EducationProvider educationProvider);
         void Remove(EducationProvider educationProvider);

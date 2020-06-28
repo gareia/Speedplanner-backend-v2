@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace speedplanner.Controllers
 {
-    
-    [Route("/api/EducationProvider/{educationProviderId}/[controller]")]
+ 
     public class LearningProgramController : Controller
     {
         private readonly ILearningProgramService _learningProgramService;
@@ -24,7 +23,17 @@ namespace speedplanner.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("api/User/{userId}/Role/Profile/EducationProvider/LearningProgram")]
+        public async Task<IActionResult> GetByProfileId(int userId) //Same that profileId
+        {
+            var result = await _learningProgramService.GetByProfileId(userId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var learningProgramResource = _mapper.Map<LearningProgram, LearningProgramResource>(result.Resource);
+            return Ok(learningProgramResource);
+        }
+
+        [HttpGet("/api/EducationProvider/{educationProviderId}/LearningProgram")]
         public async Task<IEnumerable<LearningProgramResource>> GetAllByEducationProviderIdAsync([FromRoute] int educationProviderId)
         {
             var learningPrograms = await _learningProgramService.ListByEducationProviderIdAsync(educationProviderId);
@@ -33,7 +42,7 @@ namespace speedplanner.Controllers
             return resources;
         }
 
-        [HttpGet("{learningProgramId}")]
+        [HttpGet("/api/EducationProvider/{educationProviderId}/LearningProgram/{learningProgramId}")]
         public async Task<IActionResult> GetByIdAndEducationProviderIdAsync([FromRoute] int educationProviderId, int learningProgramId)
         {
             var result = await _learningProgramService.GetByIdAndEducationProviderIdAsync(educationProviderId, learningProgramId);
@@ -43,7 +52,9 @@ namespace speedplanner.Controllers
             return Ok(learningProgramResource);
         }
 
-        [HttpPost]
+
+
+        [HttpPost("/api/EducationProvider/{educationProviderId}/LearningProgram")]
         public async Task<IActionResult> PostAsync([FromRoute] int educationProviderId, [FromBody] SaveLearningProgramResource resource)
         {
             if (!ModelState.IsValid)
@@ -59,7 +70,7 @@ namespace speedplanner.Controllers
             return Ok(learningProgramResource);
         }
 
-        [HttpPut("{learningProgramId}")]
+        [HttpPut("/api/EducationProvider/{educationProviderId}/LearningProgram/{learningProgramId}")]
         public async Task<IActionResult> PutAsync([FromRoute] int educationProviderId, int learningProgramId, [FromBody] SaveLearningProgramResource resource)
         {
             if (!ModelState.IsValid)
@@ -75,7 +86,7 @@ namespace speedplanner.Controllers
             return Ok(learningProgramResource);
         }
 
-        [HttpDelete("{learningProgramId}")]
+        [HttpDelete("/api/EducationProvider/{educationProviderId}/LearningProgram/{learningProgramId}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int educationProviderId, int learningProgramId)
         {
             var result = await _learningProgramService.DeleteAsync(educationProviderId, learningProgramId);

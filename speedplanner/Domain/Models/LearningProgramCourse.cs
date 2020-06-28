@@ -7,11 +7,12 @@ namespace speedplanner.Domain.Models
 {
     public class LearningProgramCourse
     {
-        public int LearningProgId { get; set; }
-        public LearningProgram LearningProgram { get; set; }
+        public int LProgramId { get; set; }
+        public LearningProgram LProgram { get; set; }
 
         public int CourseId { get; set; }
         public Course Course { get; set; }
+        
     }
     
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace speedplanner.Persistence.Repositories
 {
-    
+    /*
     public class InscriptionProcessRepository : BaseRepository, IInscriptionProcessRepository
     {
         public InscriptionProcessRepository(AppDbContext context) : base(context) { }
@@ -24,7 +24,7 @@ namespace speedplanner.Persistence.Repositories
         public async Task<IEnumerable<InscriptionProcess>> ListAsync()
         {
             return await _context.InscriptionProcesses.Include(ip => ip.User).ToListAsync();
-        }*/
+        }
 
         public async Task<IEnumerable<InscriptionProcess>> ListByUserIdAsync(int userId)
         {
@@ -33,6 +33,14 @@ namespace speedplanner.Persistence.Repositories
             .Include(ip => ip.User)
             .ToListAsync();
         }
+        public async Task<IEnumerable<InscriptionProcess>> ListAllByPeriodIdAsyn(int periodId)
+        {
+            return await _context.InscriptionProcesses
+                .Where(ip => ip.PeriodId == periodId)
+                .Include(ip => ip.Period)
+                .ToListAsync();
+        }
+
 
         public async Task<InscriptionProcess> FindByIdAsync(int inscriptionProcessId)
         {
@@ -45,5 +53,5 @@ namespace speedplanner.Persistence.Repositories
         }
 
         
-    }
+    }*/
 }

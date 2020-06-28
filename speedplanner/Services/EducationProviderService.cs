@@ -13,11 +13,14 @@ namespace speedplanner.Services
     {
         private readonly IEducationProviderRepository _educationProviderRepository;
         public readonly IUnitOfWork _unitOfWork;
+        private readonly IProfileRepository _profileRepository;
 
-        public EducationProviderService(IEducationProviderRepository educationProviderRepository, IUnitOfWork unitOfWork)
+        public EducationProviderService(IEducationProviderRepository educationProviderRepository, IUnitOfWork unitOfWork,
+            IProfileRepository profileRepository)
         {
             _educationProviderRepository = educationProviderRepository;
             _unitOfWork = unitOfWork;
+            _profileRepository = profileRepository;
         }
         
         public async Task<EducationProviderResponse> SaveAsync(EducationProvider educationProvider)
@@ -47,6 +50,20 @@ namespace speedplanner.Services
 
             if (existingEducationProvider == null)
                 return new EducationProviderResponse($"EducationProvider with id: {id} not found");
+            return new EducationProviderResponse(existingEducationProvider);
+        }
+
+        public async Task<EducationProviderResponse> GetByProfileId(int profileId)
+        {
+            var existingProfile = await _profileRepository.FindById(profileId);
+            if (existingProfile == null)
+                return new EducationProviderResponse($"Profile with id {profileId} not found");
+
+            int educationProviderId = existingProfile.EducationProviderId;
+
+            var existingEducationProvider = await _educationProviderRepository.FindById(educationProviderId);
+            if (existingEducationProvider == null)
+                return new EducationProviderResponse($"There is no education provider for profile {profileId}");
             return new EducationProviderResponse(existingEducationProvider);
         }
 
@@ -98,5 +115,11 @@ namespace speedplanner.Services
             }
 
         }
+        /*
+        public async Task<string> ReadPeriodInfo(int educationProviderId)
+        {
+            
+
+        }*/
     }
 }

@@ -12,10 +12,12 @@ namespace speedplanner.Domain.Services
         
         Task<EducationProviderResponse> SaveAsync(EducationProvider educationProvider);
         Task<IEnumerable<EducationProvider>> ListAsync();
-        
+        Task<EducationProviderResponse> GetByProfileId(int profileId);
         Task<EducationProviderResponse> GetByIdAsync(int id);
         Task<EducationProviderResponse> UpdateAsync(int id, EducationProvider educationProvider);
         Task<EducationProviderResponse> DeleteAsync(int id);
+
+        //Task<string> ReadPeriodInfo(int educationProviderId);
 
     }
 }

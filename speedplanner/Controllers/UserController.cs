@@ -24,9 +24,9 @@ namespace speedplanner.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int userId)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _userService.GetByIdAsync(userId);
+            var result = await _userService.GetByIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
             var userResource = _mapper.Map<User, UserResource>(result.Resource);

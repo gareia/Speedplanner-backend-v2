@@ -5,16 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Domain.Repositories
-{
+{/*
     public interface IInscriptionProcessRepository
     {
         
         Task AddAsync(int userId, InscriptionProcess inscriptionProcess);
-        //Task<IEnumerable<InscriptionProcess>> ListAsync();
-        Task<IEnumerable<InscriptionProcess>> ListByUserIdAsync(int userId);
-        Task<InscriptionProcess> FindByIdAsync(int inscriptionProcessId);
-        //no hay update
+        //there is no update
         void Remove(InscriptionProcess inscriptionProcess);
-       
-    }
+
+
+        Task<IEnumerable<InscriptionProcess>> ListByUserIdAsync(int userId);
+
+        //STATISTICS METHOD
+        Task<IEnumerable<InscriptionProcess>> ListAllByPeriodIdAsyn(int periodId);
+
+        //STUDENTs METHOD
+        Task<InscriptionProcess> FindByIdAsync(int inscriptionProcessId);
+
+    }*/
 }

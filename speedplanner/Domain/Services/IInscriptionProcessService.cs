@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Domain.Services
-{
+{/*
     public interface IInscriptionProcessService
     {
         
@@ -16,6 +16,8 @@ namespace speedplanner.Domain.Services
         Task<InscriptionProcessResponse> GetByIdAndUserIdAsync(int userId, int inscriptionProcessId); 
         //No update
         Task<InscriptionProcessResponse> DeleteAsync(int userId, int inscriptionProcessId);
+
+        Task<string> ReadUserInfo(int inscriptionProcessId);
         
-    }
+    }*/
 }

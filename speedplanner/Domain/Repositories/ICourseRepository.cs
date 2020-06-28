@@ -8,8 +8,10 @@ namespace speedplanner.Domain.Repositories
 {
     public interface ICourseRepository
     {
-        Task AddAsync(int inscriptionProcessId, Course course);
-        Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId);
+        Task AddAsync(int educationProviderId, Course course);
+        //Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId);
+        Task<IEnumerable<Course>> ListByEducationProviderIdAsync(int educationProviderId);
+        //Task<IEnumerable<Course>> ListByLearningProgramIdAsync(int learningProgramId);
         Task<Course> FindByIdAsync(int courseId);
         void Update(Course course);
         void Remove(Course course);

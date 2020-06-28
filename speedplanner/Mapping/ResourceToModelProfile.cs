@@ -13,31 +13,34 @@ namespace speedplanner.Mapping
         {
             CreateMap<SaveEducationProviderResource, EducationProvider>();
             CreateMap<SaveLearningProgramResource, LearningProgram>();
-            CreateMap<SaveInscriptionProcessResource, InscriptionProcess>();
-            CreateMap<SaveLearningProgramCourseResource, LearningProgramCourse>();
+            //CreateMap<SaveInscriptionProcessResource, InscriptionProcess>();
             CreateMap<SaveCourseResource, Course>();
-            CreateMap<SaveUserResource, User>();
+            CreateMap<SaveLearningProgramCourseResource, LearningProgramCourse>();
             
+            CreateMap<SaveUserResource, User>();
+            CreateMap<SaveProfileResource, speedplanner.Domain.Models.Profile>();
+            CreateMap<SaveRoleResource, Role>();
+            //CreateMap<SavePeriodResource, Period>();
+            CreateMap<SaveSectionResource, Section>();
+            CreateMap<SaveSectionScheduleResource, SectionSchedule>();
+            CreateMap<SaveSubscriptionResource, Subscription>();
 
             /*
-            CreateMap<SaveClassroomResource, Classroom>();
-            CreateMap<SaveClassroomCourseResource, ClassroomCourse>();
+             * CreateMap<SaveProfessorResource, Professor>();
+             *  CreateMap<SaveClassroomResource, Classroom>();
+            CreateMap<SaveSectionScheduleResource, ClassroomSectionSchedule>();
+           
+             * 
             CreateMap<SaveConstraintResource, Constraint>();
-            
             CreateMap<SaveCoursePossibleScheduleResource, CoursePossibleSchedule>();
-            CreateMap<SaveDayConstraintResource, DayConstraint>();
-            CreateMap<SaveHourRangeConstraintResource, HourRangeConstraint>();
-            CreateMap<SavePeriodResource, Period>();
             CreateMap<SavePossibleScheduleResource, PossibleSchedule>();
-            CreateMap<SaveProfessorResource, Professor>();
-            CreateMap<SaveProfessorConstraintResource, ProfessorConstraint>();
-            CreateMap<SaveProfileResource, Speedplanner.Domain.Models.Profile>();
-            CreateMap<SaveRoleResource, Role>();
-            CreateMap<SaveSectionResource, Section>();
             CreateMap<SaveSectionRequestResource, SectionRequest>();
-            CreateMap<SaveSectionScheduleResource, SectionSchedule>();
             CreateMap<SaveStatisticResource, Statistic>();
-            CreateMap<SaveSubscriptionResource, Subscription>();
+
+             CreateMap<SaveDayConstraintResource, DayConstraint>();
+            CreateMap<SaveHourRangeConstraintResource, HourRangeConstraint>();
+            CreateMap<SaveProfessorConstraintResource, ProfessorConstraint>();
+            
             
             */
         }

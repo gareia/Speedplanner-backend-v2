@@ -8,9 +8,8 @@ namespace speedplanner.Resources
     public class EducationProviderResource
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public int NumberOfCareers { get; set; }
+        public int CurrentPeriodId { get; set; }
     }
 }

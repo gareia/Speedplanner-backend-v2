@@ -11,6 +11,7 @@ namespace speedplanner.Domain.Services
     {
         Task<IEnumerable<LearningProgram>> ListByEducationProviderIdAsync(int educationProviderId);
         Task<LearningProgramResponse> SaveAsync(int educationProviderId, LearningProgram learningProgram);
+        Task<LearningProgramResponse> GetByProfileId(int profileId);
         Task<LearningProgramResponse> GetByIdAndEducationProviderIdAsync(int educationProviderId, int learningProgramId);
         Task<LearningProgramResponse> UpdateAsync(int educationProviderId, int learningProgramId, LearningProgram learningProgram);
         Task<LearningProgramResponse> DeleteAsync(int educationProviderId, int learningProgramId);

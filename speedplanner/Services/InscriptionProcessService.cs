@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Services
-{
+{/*
     public class InscriptionProcessService : IInscriptionProcessService
     {
         private readonly IInscriptionProcessRepository _inscriptionProcessRepository;
@@ -114,6 +114,22 @@ namespace speedplanner.Services
        public async Task<IEnumerable<InscriptionProcess>> ListAsync()
        {
            return await _inscriptionProcessRepository.ListAsync();
-       }*/
-    }
+       }
+
+       public async Task<string> ReadUserInfo(int inscriptionProcessId)
+        {
+            InscriptionProcess myInscriptionProcess = await _inscriptionProcessRepository.FindByIdAsync(inscriptionProcessId);
+            string me = myInscriptionProcess.User.Username;
+            string myname = myInscriptionProcess.User.Profile.Names + myInscriptionProcess.User.Profile.LastNames;
+            /*
+            int myRoleType = myInscriptionProcess.User.Role.Type; //0 admin 1 student
+            string myRole = (myRoleType == 0) ? "admin" : "student";
+            
+            string myuniv = myInscriptionProcess.User.Profile.EducationProvider.Name;
+            string mycareer = myInscriptionProcess.User.Profile.LearningProgram.Name;
+
+            string personalInformation = me+myname; // + myRole + myname + myuniv + mycareer;
+            return personalInformation;
+        }
+    }*/
 }

@@ -12,8 +12,9 @@ namespace speedplanner.Resources
         [MaxLength(40)]
         [Key]
         public string Name { get; set; }
-
         [Required]
         public int NumberOfCareers { get; set; }
+        [Required]
+        public int CurrentPeriodId { get; set; }
     }
 }

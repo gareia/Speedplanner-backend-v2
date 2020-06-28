@@ -19,7 +19,6 @@ namespace speedplanner.Persistence.Repositories
             await _context.EducationProviders.AddAsync(educationProvider);
 
         }
-
         public async Task<EducationProvider> FindById(int id)
         {
             return await _context.EducationProviders.FindAsync(id);

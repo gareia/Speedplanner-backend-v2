@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace speedplanner.Persistence.Repositories
 {
-    /*
+    
     public class LearningProgramCourseRepository: BaseRepository, ILearningProgramCourseRepository
     {
         public LearningProgramCourseRepository(AppDbContext context) : base(context) { }
@@ -17,7 +17,7 @@ namespace speedplanner.Persistence.Repositories
         public async Task<IEnumerable<LearningProgramCourse>> ListAsync()
         {
             return await _context.LearningProgramCourses
-                .Include(lpc => lpc.LearningProgram)
+                .Include(lpc => lpc.LProgram)
                 .Include(lpc => lpc.Course)
                 .ToListAsync();
         }
@@ -26,7 +26,7 @@ namespace speedplanner.Persistence.Repositories
         {
             return await _context.LearningProgramCourses
                  .Where(lpc => lpc.CourseId == courseId)
-                 .Include(lpc => lpc.LearningProgram)
+                 .Include(lpc => lpc.LProgram)
                  .Include(lpc => lpc.Course)
                  .ToListAsync();
         }
@@ -34,8 +34,8 @@ namespace speedplanner.Persistence.Repositories
         public async Task<IEnumerable<LearningProgramCourse>> ListByLearningProgramIdAsync(int learningProgramId)
         {
             return await _context.LearningProgramCourses
-                 .Where(lpc => lpc.LearningProgramId == learningProgramId)
-                 .Include(lpc => lpc.LearningProgram)
+                 .Where(lpc => lpc.LProgramId == learningProgramId)
+                 .Include(lpc => lpc.LProgram)
                  .Include(lpc => lpc.Course)
                  .ToListAsync();
         }
@@ -45,7 +45,7 @@ namespace speedplanner.Persistence.Repositories
             LearningProgramCourse learningProgramCourse = await FindByLearningProgramIdAndCourseId(learningProgramId, courseId);
             if (learningProgramCourse == null)
             {
-                learningProgramCourse = new LearningProgramCourse { LearningProgramId = learningProgramId, CourseId =courseId};
+                learningProgramCourse = new LearningProgramCourse { LProgramId = learningProgramId, CourseId =courseId};
                 await AddAsync(learningProgramCourse);
             }
             return learningProgramCourse;
@@ -78,5 +78,5 @@ namespace speedplanner.Persistence.Repositories
 
        
     }
-    */
+    
 }

@@ -15,6 +15,8 @@ namespace speedplanner.Resources
         public string Name { get; set; }
         [Required]
         public long NumberOfCourses { get; set; }
-       
+        [Required]
+        public int EducationProviderId { get; set; }
+
     }
 }

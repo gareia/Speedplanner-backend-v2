@@ -46,7 +46,7 @@ namespace speedplanner.Services
             var existingUser = await _userRepository.FindById(id);
 
             if (existingUser == null)
-                return new UserResponse("User not found");
+                return new UserResponse($"User {id} found");
             return new UserResponse(existingUser);
         }
 

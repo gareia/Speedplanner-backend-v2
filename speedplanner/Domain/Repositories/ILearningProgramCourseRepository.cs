@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Domain.Repositories
-{/*
+{
     public interface ILearningProgramCourseRepository
     {
         
@@ -19,5 +19,5 @@ namespace speedplanner.Domain.Repositories
         Task AddAsync(LearningProgramCourse learningProgramCourse);
         void Remove(LearningProgramCourse learningProgramCourse);
         
-}*/
+}
 }

@@ -7,5 +7,7 @@ namespace speedplanner.Resources
 {
     public class LearningProgramCourseResource
     {
+        public int LProgramId { get; set; }
+        public int CourseId { get; set; }
     }
 }

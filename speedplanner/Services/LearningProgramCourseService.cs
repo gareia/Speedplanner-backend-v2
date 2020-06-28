@@ -8,16 +8,35 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Services
-{/*
+{
     public class LearningProgramCourseService : ILearningProgramCourseService
     {
         private readonly ILearningProgramCourseRepository _learningProgramCourseRepository;
         public readonly IUnitOfWork _unitOfWork;
+        private readonly IProfileRepository _profileRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public LearningProgramCourseService(ILearningProgramCourseRepository learningProgramCourseRepository, IUnitOfWork unitOfWork)
+        public LearningProgramCourseService(ILearningProgramCourseRepository learningProgramCourseRepository, IUnitOfWork unitOfWork,
+            IProfileRepository profileRepository, ICourseRepository courseRepository)
         {
             _learningProgramCourseRepository = learningProgramCourseRepository;
             _unitOfWork = unitOfWork;
+            _profileRepository = profileRepository;
+            _courseRepository = courseRepository;
+        }
+
+
+        public async Task<IEnumerable<LearningProgramCourse>> ListByProfileIdAsync(int profileId)
+        {
+            var existingProfile = await _profileRepository.FindById(profileId);
+
+            if(existingProfile == null)
+                return null;
+            
+            int learningProgramId = existingProfile.LearningProgramId;
+            return await _learningProgramCourseRepository.ListByLearningProgramIdAsync(learningProgramId);
+
+            
         }
 
         public async Task<IEnumerable<LearningProgramCourse>> ListAsync()
@@ -63,5 +82,5 @@ namespace speedplanner.Services
                 return new LearningProgramCourseResponse($"An error ocurred while unassigning Course to LearningProgram: {ex.Message}");
             }
         }
-    }*/
+    }
 }

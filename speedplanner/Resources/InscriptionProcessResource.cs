@@ -8,5 +8,7 @@ namespace speedplanner.Resources
     public class InscriptionProcessResource
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+        public int PeriodId { get; set; }
     }
 }

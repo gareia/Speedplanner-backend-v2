@@ -14,30 +14,36 @@ namespace speedplanner.Mapping
         {
             CreateMap<EducationProvider, EducationProviderResource>();
             CreateMap<LearningProgram, LearningProgramResource>();
-            CreateMap<InscriptionProcess, InscriptionProcessResource>();
-            CreateMap<LearningProgramCourse, LearningProgramCourseResource>();
+            //CreateMap<InscriptionProcess, InscriptionProcessResource>();
             CreateMap<Course, CourseResource>();
+            CreateMap<LearningProgramCourse, LearningProgramCourseResource>();
+            
             CreateMap<User, UserResource>();
+            CreateMap<speedplanner.Domain.Models.Profile, ProfileResource>();
+            CreateMap<Role, RoleResource>();
+            //CreateMap<Period, PeriodResource>();
+             CreateMap<Section, SectionResource>();
+            CreateMap<SectionSchedule, SectionScheduleResource>();
+            CreateMap<Subscription, SubscriptionResource>();
+
 
             /*
-            CreateMap<Classroom, ClassroomResource>();
-            CreateMap<ClassroomCourse, ClassroomCourseResource>();
-            CreateMap<Constraint, ConstraintResource>();
             
+            CreateMap<Classroom, ClassroomResource>();
+            CreateMap<ClassroomSectionSchedule, ClassroomSectionScheduleResource>();
+           
+            CreateMap<Professor, ProfessorResource>();
+
+            CreateMap<Constraint, ConstraintResource>();
             CreateMap<CoursePossibleSchedule, CoursePossibleScheduleResource>();
+            CreateMap<PossibleSchedule, PossibleScheduleResource>();
+            CreateMap<SectionRequest, SectionRequestResource>();
+            CreateMap<Statistic, StatisticResource>();
+
+            CreateMap<ProfessorConstraint, ProfessorConstraintResource>();
             CreateMap<DayConstraint, DayConstraintResource>();
             CreateMap<HourRangeConstraint, HourRangeConstraintResource>();
-            CreateMap<Period, PeriodResource>();
-            CreateMap<PossibleSchedule, PossibleScheduleResource>();
-            CreateMap<Professor, ProfessorResource>();
-            CreateMap<ProfessorConstraint, ProfessorConstraintResource>();
-            CreateMap<Speedplanner.Domain.Models.Profile, ProfileResource>();
-            CreateMap<Role, RoleResource>();
-            CreateMap<Section, SectionResource>();
-            CreateMap<SectionRequest, SectionRequestResource>();
-            CreateMap<SectionSchedule, SectionScheduleResource>();
-            CreateMap<Statistic, StatisticResource>();
-            CreateMap<Subscription, SubscriptionResource>();
+            
             
             //*/
         }

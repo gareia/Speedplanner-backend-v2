@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace speedplanner.Controllers
 {
-    /*
-    [Route("/api")]
+    
     public class LearningProgramCourseController : Controller
     {
 
@@ -23,6 +22,18 @@ namespace speedplanner.Controllers
             _learningProgramCourseService = learningProgramCourseService;
             _mapper = mapper;
         }
+
+        //brings lpid and cid, similar to course controller method
+        public async Task<IEnumerable<LearningProgramCourseResource>> GetAllByProfileIdAsync([FromRoute] int userId)
+        {
+            var learningProgramCourses = await _learningProgramCourseService.ListByProfileIdAsync(userId);
+            var resources = _mapper
+                .Map<IEnumerable<LearningProgramCourse>, IEnumerable<LearningProgramCourseResource>>(learningProgramCourses);
+            return resources;
+
+        }
+
+
 
         [HttpGet("/learning-program-courses")]
         public async Task<IEnumerable<LearningProgramCourseResource>> GetAllAsync()
@@ -73,6 +84,6 @@ namespace speedplanner.Controllers
 
 
     }
-    */
+    
         
 }

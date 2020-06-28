@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace speedplanner.Controllers
-{
+{/*
 
     [Route("/api/User/{userId}/[controller]")]
     public class InscriptionProcessController : Controller
@@ -33,7 +33,7 @@ namespace speedplanner.Controllers
             var resources = _mapper
                 .Map<IEnumerable<InscriptionProcess>, IEnumerable<InscriptionProcessResource>>(inscriptionProcesses);
             return resources;
-        }*/
+        }
 
         [HttpGet]
         public async Task<IEnumerable<InscriptionProcessResource>> GetAllByUserIdAsync([FromRoute] int userId)
@@ -51,7 +51,9 @@ namespace speedplanner.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             var inscriptionProcessResource = _mapper.Map<InscriptionProcess, InscriptionProcessResource>(result.Resource);
-            return Ok(inscriptionProcessResource);
+            //return Ok(inscriptionProcessResource);
+            string info = await _inscriptionProcessService.ReadUserInfo(inscriptionProcessId);
+            return Ok(info);
         }
 
         [HttpPost]
@@ -86,6 +88,6 @@ namespace speedplanner.Controllers
 
 
 
-    }
+    }*/
     
 }

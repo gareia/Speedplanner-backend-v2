@@ -13,22 +13,29 @@ namespace speedplanner.Services
     {
         private readonly ICourseRepository _courseRepository;
         public readonly IUnitOfWork _unitOfWork;
-        private readonly IInscriptionProcessRepository _inscriptionProcessRepository;
+        private readonly IEducationProviderRepository _educationProviderRepository;
+        private readonly IProfileRepository _profileRepository;
+        private readonly ILearningProgramCourseRepository _learningProgramCourseRepository;
+        
 
         //CONSTRUCTOR
         public CourseService(ICourseRepository courseRepository, IUnitOfWork unitOfWork,
-            IInscriptionProcessRepository inscriptionProcessRepository)
+             IEducationProviderRepository educationProviderRepository, IProfileRepository profileRepository,
+             ILearningProgramCourseRepository learningProgramCourseRepository)
         {
             _courseRepository = courseRepository;
             _unitOfWork = unitOfWork;
-            _inscriptionProcessRepository = inscriptionProcessRepository;
+            _educationProviderRepository = educationProviderRepository;
+            _profileRepository = profileRepository;
+            _learningProgramCourseRepository = learningProgramCourseRepository;
+           
         }
 
         //HELPFULL METHODS
-        private async Task<InscriptionProcess> FindInscriptionProcessById(int inscriptionProcessId)
+        private async Task<EducationProvider> FindEducationProviderById(int educationProviderId)
         {
-            var existingInscriptionProcess = await _inscriptionProcessRepository.FindByIdAsync(inscriptionProcessId);
-            return existingInscriptionProcess;
+            var existingEducationProvider = await _educationProviderRepository.FindById(educationProviderId);
+            return existingEducationProvider;
         }
         private async Task<Course> FindCourseById(int courseId)
         {
@@ -38,17 +45,36 @@ namespace speedplanner.Services
 
         //CRUD METHODS
 
-        //Create---------
-        public async Task<CourseResponse> SaveAsync(int inscriptionProcessId, Course course)
+        public async Task<IEnumerable<Course>> ListByProfileIdAsync(int profileId)
         {
-            //find inscription process
-            if (await FindInscriptionProcessById(inscriptionProcessId) == null)
-                return new CourseResponse($"Inscription process with id: {inscriptionProcessId} not found");
+            var existingProfile = await _profileRepository.FindById(profileId);
+            if (existingProfile == null)
+                return null;
+
+            int learningProgramId = existingProfile.LearningProgramId;
+
+            var learningProgramCourses = await _learningProgramCourseRepository.ListByLearningProgramIdAsync(learningProgramId);
+            var courses = learningProgramCourses.Select(lpc => lpc.Course).ToList();
+            return courses;
+        }
+
+        //Read courses by education provider id
+        public async Task<IEnumerable<Course>> ListByEducationProviderIdAsync(int educationProviderId)
+        {
+            return await _courseRepository.ListByEducationProviderIdAsync(educationProviderId);
+        }
+
+        //Create---------
+        public async Task<CourseResponse> SaveAsync(int educationProviderId, Course course)
+        {
+            //find education provider
+            if (await FindEducationProviderById(educationProviderId) == null)
+                return new CourseResponse($"Education provider with id: {educationProviderId} not found");
 
             //now add
             try
             {
-                await _courseRepository.AddAsync(inscriptionProcessId, course);
+                await _courseRepository.AddAsync(educationProviderId, course);
                 await _unitOfWork.CompleteAsync();
 
                 return new CourseResponse(course);
@@ -59,18 +85,19 @@ namespace speedplanner.Services
             }
         }
 
+        /*
         //GetByInscriptionProcessId---------
         public async Task<IEnumerable<Course>> ListByInscriptionProcessIdAsync(int inscriptionProcessId)
         {
             return await _courseRepository.ListByInscriptionProcessIdAsync(inscriptionProcessId);
-        }
+        }*/
 
         //GetByCourseId&InscriptionProcessId---------
-        public async Task<CourseResponse> GetByIdAndInscriptionProcessIdAsync(int inscriptionProcessId, int courseId)
+        public async Task<CourseResponse> GetByIdAndEducationProviderIdAsync(int educationProviderId, int courseId)
         {
-            //find inscription process
-            if (await FindInscriptionProcessById(inscriptionProcessId) == null)
-                return new CourseResponse($"Inscription process with id: {inscriptionProcessId} not found");
+            //find education provider
+            if (await FindEducationProviderById(educationProviderId) == null)
+                return new CourseResponse($"Education provider with id: {educationProviderId} not found");
 
             //find course 
             var existingCourse = await FindCourseById(courseId);
@@ -82,11 +109,11 @@ namespace speedplanner.Services
         }
 
         //Update---------
-        public async Task<CourseResponse> UpdateAsync(int inscriptionProcessId, int courseId, Course course)
+        public async Task<CourseResponse> UpdateAsync(int educationProviderId, int courseId, Course course)
         {
-            //find inscription process
-            if (await FindInscriptionProcessById(inscriptionProcessId) == null)
-                return new CourseResponse($"Inscription process with id: {inscriptionProcessId} not found");
+            //find education provider
+            if (await FindEducationProviderById(educationProviderId) == null)
+                return new CourseResponse($"Education provider with id: {educationProviderId} not found");
 
             //find course 
             var existingCourse = await FindCourseById(courseId);
@@ -117,11 +144,11 @@ namespace speedplanner.Services
         }
 
         //Delete---------
-        public async Task<CourseResponse> DeleteAsync(int inscriptionProcessId, int courseId)
+        public async Task<CourseResponse> DeleteAsync(int educationProviderId, int courseId)
         {
-            //find inscription process
-            if (await FindInscriptionProcessById(inscriptionProcessId) == null)
-                return new CourseResponse($"Inscription process with id: {inscriptionProcessId} not found");
+            //find education provider
+            if (await FindEducationProviderById(educationProviderId) == null)
+                return new CourseResponse($"Education provider with id: {educationProviderId} not found");
 
             //find course 
             var existingCourse = await FindCourseById(courseId);

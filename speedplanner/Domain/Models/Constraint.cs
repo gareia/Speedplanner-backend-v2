@@ -12,7 +12,7 @@ namespace speedplanner.Domain.Models
         public string EndTime { get; set; }
         public int NumberOfHours { get; set; }
         public string Days { get; set; }
-        public Professor Professor { get; set; }
+        //public Professor Professor { get; set; }
         
     }
 }

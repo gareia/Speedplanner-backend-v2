@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace speedplanner.Controllers
 {
     
-    [Route("/api/[controller]")]
+    //[Route("/api/[controller]")]
     public class EducationProviderController : Controller
     {
 
@@ -26,7 +26,17 @@ namespace speedplanner.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("api/User/{userId}/Role/Profile/EducationProvider")]
+        public async Task<IActionResult> GetByProfileId(int userId) //Same that profileId
+        {
+            var result = await _educationProviderService.GetByProfileId(userId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var educationProviderResource = _mapper.Map<EducationProvider, EducationProviderResource>(result.Resource);
+            return Ok(educationProviderResource);
+        }
+
+        [HttpGet("/api/EducationProvider")]
         public async Task<IEnumerable<EducationProviderResource>> GetAllAsync()
         {
             var educationProviders = await _educationProviderService.ListAsync();
@@ -36,7 +46,7 @@ namespace speedplanner.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("/api/EducationProvider/{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _educationProviderService.GetByIdAsync(id);
@@ -46,7 +56,7 @@ namespace speedplanner.Controllers
             return Ok(educationProviderResource);
         }
 
-        [HttpPost]
+        [HttpPost("/api/EducationProvider")]
         public async Task<IActionResult> PostAsync([FromBody] SaveEducationProviderResource resource)
         {
             if (!ModelState.IsValid)
@@ -62,7 +72,7 @@ namespace speedplanner.Controllers
             return Ok(educationProviderResource);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("/api/EducationProvider/{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveEducationProviderResource resource)
         {
             var educationProvider = _mapper.Map<SaveEducationProviderResource, EducationProvider>(resource);
@@ -75,7 +85,7 @@ namespace speedplanner.Controllers
             return Ok(educationProviderResource);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/api/EducationProvider/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _educationProviderService.DeleteAsync(id);

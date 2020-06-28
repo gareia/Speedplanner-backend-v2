@@ -14,14 +14,16 @@ namespace speedplanner.Services
         private readonly ILearningProgramRepository _learningProgramRepository;
         public readonly IUnitOfWork _unitOfWork;
         private readonly IEducationProviderRepository _educationProviderRepository;
+        private readonly IProfileRepository _profileRepository;
 
         //CONSTRUCTOR
         public LearningProgramService(ILearningProgramRepository learningProgramRepository, IUnitOfWork unitOfWork,
-            IEducationProviderRepository educationProviderRepository)
+            IEducationProviderRepository educationProviderRepository, IProfileRepository profileRepository)
         {
             _learningProgramRepository = learningProgramRepository;
             _unitOfWork = unitOfWork;
             _educationProviderRepository = educationProviderRepository;
+            _profileRepository = profileRepository;
         }
 
         //HELPFULL METHODS
@@ -64,6 +66,21 @@ namespace speedplanner.Services
         public async Task<IEnumerable<LearningProgram>> ListByEducationProviderIdAsync(int educationProviderId)
         {
             return await _learningProgramRepository.ListByEducationProviderIdAsync(educationProviderId);
+        }
+
+        //GetByProfileId----
+        public async Task<LearningProgramResponse> GetByProfileId(int profileId)
+        {
+            var existingProfile = await _profileRepository.FindById(profileId);
+            if (existingProfile == null)
+                return new LearningProgramResponse($"Profile with id {profileId} not found");
+
+            int learningProgramId = existingProfile.LearningProgramId;
+
+            var existingLearningProgram = await _learningProgramRepository.FindByIdAsync(learningProgramId);
+            if (existingLearningProgram == null)
+                return new LearningProgramResponse($"There is no learning program for profile {profileId}");
+            return new LearningProgramResponse(existingLearningProgram);
         }
 
         //GetByLearningProgramId&EducationProviderId---------

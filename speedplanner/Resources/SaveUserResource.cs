@@ -9,7 +9,7 @@ namespace speedplanner.Resources
     public class SaveUserResource
     {
         [Required]
-        [MaxLength(30)]
+        [MaxLength(15)]
         public string Username { get; set; }
 
         [Required]
@@ -17,7 +17,7 @@ namespace speedplanner.Resources
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(8)]
         public string Password { get; set; }
     }
 }

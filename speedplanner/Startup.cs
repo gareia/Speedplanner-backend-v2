@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using speedplanner.Domain.Models;
 using speedplanner.Domain.Persistence.Contexts;
 using speedplanner.Domain.Repositories;
 using speedplanner.Domain.Services;
@@ -42,17 +43,27 @@ namespace speedplanner
             //REPOS-----
             services.AddScoped<IEducationProviderRepository, EducationProviderRepository>();
             services.AddScoped<ILearningProgramRepository, LearningProgramRepository>();
-            services.AddScoped<IInscriptionProcessRepository, InscriptionProcessRepository>();
-
-            //services.AddScoped<ILearningProgramCourseRepository, LearningProgramCourseRepository>();
+            //services.AddScoped<IInscriptionProcessRepository, InscriptionProcessRepository>();
+            services.AddScoped<ILearningProgramCourseRepository, LearningProgramCourseRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+            services.AddScoped<ISectionScheduleRepository, SectionScheduleRepository>();
 
             //SERVICES-----
             services.AddScoped<IEducationProviderService, EducationProviderService>();
             services.AddScoped<ILearningProgramService, LearningProgramService>();
-            services.AddScoped<IInscriptionProcessService, InscriptionProcessService>();
-            //services.AddScoped<ILearningProgramCourseService, LearningProgramCourseService>();
+            //services.AddScoped<IInscriptionProcessService, InscriptionProcessService>();
+            services.AddScoped<ILearningProgramCourseService, LearningProgramCourseService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ISectionService, SectionService>();
+            services.AddScoped<ISectionScheduleService, SectionScheduleService>();
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
